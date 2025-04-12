@@ -3,7 +3,7 @@ import Nav from "./Nav";
 const Header = () => {
   return (
     <header>
-      Header
+      <img src="Logo.svg" alt="logo little lemon" />
       <Nav />
     </header>
   );
