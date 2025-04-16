@@ -1,3 +1,17 @@
+header {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 10vw;
+  padding-left: 20vw;
+  padding-right: 20vw;
+
+}
+header nav ul  {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 header nav ul li {
   list-style-type:none;
   font-style: bold;
