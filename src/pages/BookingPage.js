@@ -1,12 +1,12 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Main from "../components/Main";
+import BookingForm from "../components/BookingForm";  
 
 const BookingPage = () => {
   return (
     <>
       <Header />
-      <Main />
+      <BookingForm />
       <Footer />
     </>
   );
