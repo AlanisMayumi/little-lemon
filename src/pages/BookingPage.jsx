@@ -1,6 +1,6 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import BookingForm from "../components/booking-form";  
+import Footer from "../components/Footer.js";
+import Header from "../components/Header.js";
+import BookingForm from "../components/booking-form";
 
 const BookingPage = () => {
   return (

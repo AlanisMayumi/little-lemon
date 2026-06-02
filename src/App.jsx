@@ -1,4 +1,3 @@
-import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main";
@@ -14,7 +13,7 @@ function App() {
       <Footer />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/booking" element={<BookingPage />} /> 
+        <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </>
   );
