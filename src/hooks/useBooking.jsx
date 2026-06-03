@@ -11,9 +11,12 @@ export const timeOptions = [
 
 export const useBooking = () => {
   const [availableTimes, setAvailableTimes] = useState(timeOptions);
+  const [bookedSlots, setBookedSlots] = useState([]);
 
   return {
     availableTimes,
     setAvailableTimes,
+    bookedSlots,
+    setBookedSlots,
   };
 };
