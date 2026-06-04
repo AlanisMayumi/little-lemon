@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { timeOptions } from "../../hooks/useBooking";
 
-const BookingForm = () => {
+const BookingForm = ({ onSubmit }) => {
   const [date, setDate] = useState("");
-  const [availableTimes, setAvailableTimes] = useState(timeOptions);
-
+  const [time, setTime] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      "Form submitted with date:",
-      date,
-      "and time:",
-      availableTimes[0],
-    );
+    console.log("Form submitted with date:", date, "and time:", time);
+
+    onSubmit({ date, time: time });
   };
+
   return (
     <>
       <form
@@ -30,7 +27,9 @@ const BookingForm = () => {
         <label htmlFor="res-time">Choose time</label>
         <select
           id="res-time"
-          onChange={(e) => setAvailableTimes([e.target.value])}
+          onChange={(e) => {
+            setTime(e.target.value);
+          }}
         >
           {timeOptions.map((time) => (
             <option key={time} value={time}>
