@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
 export const timeOptions = [
   "17:00",
@@ -10,12 +10,33 @@ export const timeOptions = [
 ];
 
 export const useBooking = () => {
-  const [availableTimes, setAvailableTimes] = useState(timeOptions);
+  const initializeTimes = () => timeOptions;
+  const reducer = (state, action) => {
+    switch ((action.type, action.payload)) {
+      case "ADD":
+        return { availableTimes: [...state.availableTimes, action.payload] };
+      case "REMOVE":
+        return {
+          availableTimes: state.availableTimes.filter(
+            (time) => time !== action.payload,
+          ),
+        };
+      case "RESET":
+        return { availableTimes: initializeTimes() };
+      default:
+        throw new Error();
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, {
+    availableTimes: initializeTimes(),
+  });
   const [bookedSlots, setBookedSlots] = useState([]);
 
   return {
-    availableTimes,
-    setAvailableTimes,
+    availableTimes: state.availableTimes,
+    setAvailableTimes: (time) => dispatch({ type: "ADD", payload: time }),
+    removeAvailableTime: (time) => dispatch({ type: "REMOVE", payload: time }),
+    resetAvailableTimes: () => dispatch({ type: "RESET" }),
     bookedSlots,
     setBookedSlots,
   };

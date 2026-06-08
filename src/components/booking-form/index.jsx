@@ -8,7 +8,7 @@ const BookingForm = ({ onSubmit }) => {
     e.preventDefault();
     console.log("Form submitted with date:", date, "and time:", time);
 
-    onSubmit({ date, time: time });
+    onSubmit?.({ date, time });
   };
 
   return (
