@@ -12,7 +12,7 @@ export const timeOptions = [
 export const useBooking = () => {
   const initializeTimes = () => timeOptions;
   const reducer = (state, action) => {
-    switch ((action.type, action.payload)) {
+    switch (action.type) {
       case "ADD":
         return { availableTimes: [...state.availableTimes, action.payload] };
       case "REMOVE":
