@@ -5,10 +5,12 @@ import BookingForm from "../components/booking-form";
 import { useBooking } from "../hooks/useBooking";
 
 const BookingPage = () => {
-  const { bookedSlots, removeAvailableTime, availableTimes } = useBooking();
+  const { bookedSlots, setBookedSlots, removeAvailableTime, availableTimes } =
+    useBooking();
 
   const updateTimes = ({ date, time }) => {
     removeAvailableTime(time);
+    setBookedSlots((prev) => [...prev, { date, time }]);
   };
   return (
     <>
