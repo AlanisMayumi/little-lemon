@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import BookingPage from "./pages/BookingPage";
+import BookingPage from "./pages/booking";
 
 function App() {
   return (

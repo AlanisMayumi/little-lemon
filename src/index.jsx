@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals.js";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import HomePage from "./pages/HomePage";
-import BookingPage from "./pages/BookingPage";
+import BookingPage from "./pages/booking";
 
 const router = createBrowserRouter([
   {
