@@ -8,6 +8,14 @@ const BookingPage = () => {
   const { bookedSlots, setBookedSlots, setAvailableTimes, availableTimes } =
     useBooking();
 
+  const submitForm = (formData) => {
+    if (window?.submitAPI) {
+      window.submitAPI(formData);
+    }
+
+    updateTimes({ date: formData.date, time: formData.time });
+  };
+
   const updateTimes = ({ date, time }) => {
     let results = [];
     if (window?.fetchAPI) {
@@ -28,7 +36,7 @@ const BookingPage = () => {
           ))}
         </ul>
       </div>
-      <BookingForm onSubmit={updateTimes} />
+      <BookingForm onSubmit={submitForm} />
       <Footer />
     </>
   );
