@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import Footer from "../../components/Footer.js";
 import Header from "../../components/Header.js";
 import { BookedTable } from "../../components/booked-table/index.jsx";
@@ -7,18 +9,23 @@ import { useBooking } from "../../hooks/useBooking";
 const BookingPage = () => {
   const { bookedSlots, setBookedSlots, setAvailableTimes, availableTimes } =
     useBooking();
+  const navigate = useNavigate();
 
   const submitForm = (formData) => {
-    if (window?.submitAPI) {
-      window.submitAPI(formData);
-    }
-
     updateTimes({ date: formData.date, time: formData.time });
+    if (window?.submitAPI) {
+      const response = window.submitAPI(formData);
+      if (response) {
+        navigate("/booking-confirmation");
+      }
+      console.log("Form submission response:", response);
+    }
   };
 
   const updateTimes = ({ date, time }) => {
     let results = [];
     if (window?.fetchAPI) {
+      console.log("existe fetchAPI");
       results = window.fetchAPI(new Date(date));
     }
     setAvailableTimes(results);

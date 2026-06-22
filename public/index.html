@@ -23,7 +23,39 @@
     <title>Little Lemon Restaurant</title>
   </head>
   <body>
-    <script src="https://raw.githubusercontent.com/courseraap/capstone/main/api.js"></script>
+    <script  src="https://raw.githubusercontent.com/courseraap/capstone/main/api.js"></script>
+    <script>
+      const fetchAPI = function(date) {
+         let result = [];
+         let random = seededRandom(date.getDate());
+
+         for(let i = 17; i <= 23; i++) {
+           if(random() < 0.5) {
+              result.push(i + ':00');
+           }
+          if(random() < 0.5) {
+             result.push(i + ':30');
+          }
+       }
+        return result;
+      };
+     const submitAPI = function(formData) {
+       return true;
+     };
+     
+     const seededRandom = function (seed) {
+       var m = 2**35 - 31;
+       var a = 185852;
+       var s = seed % m;
+      return function () {
+        return (s = s * a % m) / m;
+      };
+    }
+
+     window.fetchAPI = fetchAPI;
+      window.submitAPI = submitAPI;
+    </script>
+  </body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>

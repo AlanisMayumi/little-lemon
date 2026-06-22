@@ -6,7 +6,7 @@ const BookingForm = ({ onSubmit }) => {
   const [time, setTime] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted with date:", e.currentTarget);
+
     const values = Object.fromEntries(new FormData(e.currentTarget));
 
     onSubmit?.(values);
