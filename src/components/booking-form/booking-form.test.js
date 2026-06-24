@@ -23,6 +23,8 @@ describe("BookingForm", () => {
     expect(mockOnSubmit).toHaveBeenCalledWith({
       date: "2024-07-01",
       time: "18:00",
+      guests: "1",
+      occasion: "birthday",
     });
   });
 });

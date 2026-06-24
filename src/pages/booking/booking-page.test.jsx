@@ -8,6 +8,11 @@ import {
 import { useBooking, timeOptions } from "../../hooks/useBooking";
 import BookingPage from ".";
 
+const mockNavigate = jest.fn();
+jest.mock("react-router", () => ({
+  useNavigate: () => mockNavigate,
+}));
+
 test("initializeTimes returns the correct initial times", () => {
   const { result } = renderHook(() => useBooking());
 
