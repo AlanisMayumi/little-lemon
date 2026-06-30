@@ -1,36 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import { timeOptions } from "../../hooks/useBooking";
 import { Formik } from "formik";
 
 const errorMessage = (field) => <div style={{ color: "red" }}>{field}</div>;
 
-const BookingForm = ({ onSubmit }) => {
+const BookingForm = ({ availableTimes, onSubmit }) => {
   const today = new Date();
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const values = Object.fromEntries(new FormData(e.currentTarget));
-
+  const handleSubmit = (values) => {
     onSubmit?.(values);
   };
 
   return (
     <>
       <Formik
+        initialValues={{
+          date: today.toISOString().split("T")[0],
+          time: timeOptions[0],
+          guests: 1,
+          occasion: "birthday",
+        }}
         onSubmit={handleSubmit}
         validate={(values) => {
           const errors = {};
 
-          if (!values.date) {
+          if (!values?.date) {
             errors.date = "Date is required";
+          }
+
+          if (values?.date && new Date(values.date) < today) {
+            errors.date = "Date is invalid. Please select a future date.";
+          }
+
+          if (!values?.time) {
+            errors.time = "Time is required";
+          }
+
+          if (values.guests < 1) {
+            errors.guests = "Number of guests should be more than 1";
+          }
+          if (!values.occasion) {
+            errors.occasion = "Occasion is required";
           }
 
           return errors;
         }}
       >
-        {({ handleSubmit, errors, values, isSubmitting }) => (
+        {({ handleSubmit, errors, values, isSubmitting, handleChange }) => (
           <form
             onSubmit={handleSubmit}
             style={{ display: "grid", maxWidth: "200px", gap: "20px" }}
@@ -39,22 +54,19 @@ const BookingForm = ({ onSubmit }) => {
             <input
               type="date"
               name="date"
+              value={values.date}
               id="res-date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={handleChange}
             />
             {errors.date && errorMessage(errors.date)}
             <label htmlFor="res-time">Choose time</label>
             <select
               name="time"
               id="res-time"
-              value={time}
-              onChange={(e) => {
-                console.log("Selected time:", e.target.value);
-                setTime(e.target.value);
-              }}
+              onChange={handleChange}
+              value={values.time}
             >
-              {timeOptions.map((time) => (
+              {availableTimes.map((time) => (
                 <option key={time} value={time}>
                   {time}
                 </option>
@@ -70,19 +82,16 @@ const BookingForm = ({ onSubmit }) => {
               max="10"
               id="guests"
               name="guests"
+              onChange={handleChange}
             />
             {errors.guests && errorMessage(errors.guests)}
             <label htmlFor="occasion">Occasion</label>
-            <select id="occasion" name="occasion">
+            <select id="occasion" name="occasion" onChange={handleChange}>
               <option value="birthday">Birthday</option>
               <option value="anniversary">Anniversary</option>
             </select>
             {errors.occasion && errorMessage(errors.occasion)}
-            <input
-              type="submit"
-              value="Make Your reservation"
-              disabled={isSubmitting}
-            />
+            <input type="submit" value="Make Your reservation" />
           </form>
         )}
       </Formik>

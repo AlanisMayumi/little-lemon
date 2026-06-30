@@ -12,11 +12,12 @@ const BookingPage = () => {
   const navigate = useNavigate();
 
   const submitForm = (formData) => {
+    console.log("Form submitted with data:", formData);
     updateTimes({ date: formData.date, time: formData.time });
     if (window?.submitAPI) {
       const response = window.submitAPI(formData);
       if (response) {
-        navigate("/booking-confirmation");
+        // navigate("/booking-confirmation");
       }
       console.log("Form submission response:", response);
     }
@@ -26,11 +27,17 @@ const BookingPage = () => {
     let results = [];
     if (window?.fetchAPI) {
       console.log("existe fetchAPI");
-      results = window.fetchAPI(new Date(date));
+      const resultsFromApi = window.fetchAPI(new Date(date));
+      results = resultsFromApi.filter(
+        (availableTime) =>
+          !bookedSlots.some((slot) => slot.time === availableTime),
+      );
     }
+    console.log("Available times fetched:", results);
     setAvailableTimes(results);
     setBookedSlots((prev) => [...prev, { date, time }]);
   };
+  console.log("Available times:", availableTimes);
   return (
     <>
       <Header />
@@ -43,7 +50,7 @@ const BookingPage = () => {
           ))}
         </ul>
       </div>
-      <BookingForm onSubmit={submitForm} />
+      <BookingForm availableTimes={availableTimes} onSubmit={submitForm} />
       <Footer />
     </>
   );

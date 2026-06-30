@@ -14,7 +14,7 @@ export const useBooking = () => {
   const reducer = (state, action) => {
     switch (action.type) {
       case "ADD":
-        return { availableTimes: [...state.availableTimes, action.payload] };
+        return { availableTimes: action.payload };
       case "REMOVE":
         return {
           availableTimes: state.availableTimes.filter(
