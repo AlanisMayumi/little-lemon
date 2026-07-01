@@ -5,16 +5,17 @@ import { Formik } from "formik";
 const errorMessage = (field) => <div style={{ color: "red" }}>{field}</div>;
 
 const BookingForm = ({ availableTimes, onSubmit }) => {
-  const today = new Date();
+  const today = new Date().toISOString().split("T")[0];
   const handleSubmit = (values) => {
     onSubmit?.(values);
   };
 
+  // https://www.coursera.org/learn/meta-front-end-developer-capstone/supplement/M6G7F/exercise-adding-unit-test s-for-the-form-validation-and-submission
   return (
     <>
       <Formik
         initialValues={{
-          date: today.toISOString().split("T")[0],
+          date: today,
           time: timeOptions[0],
           guests: 1,
           occasion: "birthday",
